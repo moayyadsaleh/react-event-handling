@@ -2,33 +2,25 @@ import React, { useState } from "react";
 import "../styles.css";
 
 function App() {
-  const [headingText, setHeadingText] = useState("Hello");
-  const [isMousedOver, setMouseOver] = useState(false);
+  const [name, setName] = useState("");
 
-  function handleClick() {
-    setHeadingText("Submitted");
-  }
-
-  function handleMouseOver() {
-    setMouseOver(true);
-  }
-
-  function handleMouseOut() {
-    setMouseOver(false); // Change state to false when the mouse is out
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevents the default form submission behavior
+    const inputName = event.target.elements.name.value;
+    setName(inputName);
   }
 
   return (
     <div className="container">
-      <h1>{headingText}</h1>
-      <input type="text" placeholder="What's your name?" />
-      <button
-        style={{ backgroundColor: isMousedOver ? "black" : "white" }}
-        onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      >
-        Submit
-      </button>
+      <h1>Hello {name}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name" // Added name attribute to the input
+          placeholder="What's your name?"
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
